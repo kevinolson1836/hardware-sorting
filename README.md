@@ -31,12 +31,26 @@ The GitHub action will automatically build the ASIC files using [LibreLane](http
 - [Join the community](https://tinytapeout.com/discord)
 - [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
 
-## What next?
 
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
-  - Bluesky [@tinytapeout.com](https://bsky.app/profile/tinytapeout.com)
+
+## Main work flow 
+
+1. install the harding tools
+    - https://www.tinytapeout.com/guides/local-hardening/
+
+2. harden the thing with:
+    - First, generate the LibreLane configuration file
+      - /tt/tt_tool.py --create-user-config
+    
+    - Then run the following command to harden the project locally. Notice that this command requires you to have Docker (or a compatible container engine) installed and running.
+      - ./tt/tt_tool.py --harden
+
+    - It’s also recommended to run the following command, checking for any synthesis / clock warnings:
+      - ./tt/tt_tool.py --print-warnings
+
+    - NOTE the file gets saved at   /runs/wokwi/final/gds/
+
+3. convert it to a file blender can use 
+    - python3 gds2gltf.py /path/to/your_design.gds
+
+    - that will make a .gltf file that blender can open
